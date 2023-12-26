@@ -20,6 +20,24 @@
 .logo {
   height: 28.2rem;
 }
+.book-now-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-left: 10px; /* Adjust as needed for spacing */
+  background-color: #007bff; /* Button color */
+  color: white; /* Text color */
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.book-now-button:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+  color: white;
+  text-decoration: none;
+}
 
 /****************************/
 /*        NAVIGATION        */
