@@ -1,12 +1,12 @@
 const AWS = require('aws-sdk');
 const ses = new AWS.SES();
 
-exports.handler = async (event) => {
+exports.sendEmail = async (event) => {
     let data = JSON.parse(event.body);
-    
+
     var params = {
         Destination: {
-            ToAddresses: ['angelsfinecleaning@gmail.com']
+            ToAddresses: ['angelsfinecleaning@gmail.com'] // Use environment variable
         },
         Message: {
             Body: {
@@ -14,13 +14,28 @@ exports.handler = async (event) => {
             },
             Subject: { Data: 'Contact Form Submission' }
         },
-        Source: 'your_verified_email@yourdomain.com'
+        Source: 'angelsfinecleaning@gmail.com' // Use environment variable
     };
 
     try {
         await ses.sendEmail(params).promise();
-        return { statusCode: 200, body: 'Email sent successfully' };
+        return {
+            statusCode: 200, 
+            body: JSON.stringify({ message: 'Email sent successfully' }),
+            headers: {
+                'Access-Control-Allow-Origin': '*', // If using CORS
+                'Content-Type': 'application/json'
+            }
+        };
     } catch (e) {
-        return { statusCode: 500, body: 'Failed to send email' };
+        console.error(e);
+        return {
+            statusCode: 500, 
+            body: JSON.stringify({ error: 'Failed to send email' }),
+            headers: {
+                'Access-Control-Allow-Origin': '*', // If using CORS
+                'Content-Type': 'application/json'
+            }
+        };
     }
 };
